@@ -1,0 +1,18 @@
+#!/bin/bash
+
+read_link=~/.config/conky/themes/
+logo=/usr/share/pixmaps/logo.png
+
+yad --title="EnigmaOS Power Menu" \
+    --window-icon=$logo \
+    --center \
+    --undecorated \
+    --skip-taskbar \
+    --timeout="5" \
+    --button="Restart:systemctl reboot" \
+    --button="Shutdown:systemctl poweroff" \
+    --button="Suspend:systemctl suspend" \
+    --button="Hibernate:systemctl hibernate" \
+    --button="Logout:kill -9 -1" \
+    --button="Cancel:1" \
+    --timeout-indicator="top" \

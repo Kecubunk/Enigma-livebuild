@@ -1,0 +1,59 @@
+#!/bin/bash
+#===================================================================================
+# FILE: welcome
+# VERSION: 1.0
+# CREATED: 2021.09.21
+# LICENSE: GNU General Public License v3.0
+#===================================================================================
+welcome_link=~/.config/welcome
+
+# English welcome text
+text_en='<big><b>WELCOME TO EnigmaOS Bookworm 12.10</b></big>
+ An Operating System Base on Debian Bookworm Linux.
+ 
+ <b> Build using Debian live-build </b>
+   • Remove Bloat :
+     		gnome-games,anthy,golden-dict,thai-term,etc
+   • Adding system :
+     		nala,python3,fix problem python3-pip,openjdk8
+ 
+ <b> LightDM as Login Manager instead of GDM3 </b>
+
+ <b> Google-Chrome-Stable as default </b>
+
+ <b> Gnome Desktop 43.9 </b>
+   • With PopShell Extensions Support
+   • Arcmenu
+   • Dash To Dock
+   • runcat
+   
+<b> Nemo File manager </b>
+   • <tt>Replacing Nautilus with Nemo</tt>
+   
+<b> Electronics Tools</b>
+   • Arduino
+   • EasyEDA
+   • AppyBuilder Personal
+   
+<b> AI support</b>		
+   • Ollama (need to install model)
+'
+field_en="Show this message on startup"
+
+# Get current language
+lang="en"
+[ "$(echo $LANG | cut -f1 -d_)" = "es" ] && lang="es"
+eval text="\$text_$lang"
+eval field="\$field_$lang"
+
+# Show yad dialog
+output=$(yad --form --button=gtk-ok --center --undecorated --fixed --borders=30 --window-icon=nautilus --text="$text" --field="$field:CHK" $([ -s "$welcome_link" ] && echo true || echo false) --separator=""  --image=debian-logo)
+
+# Delete simbolic link if not show next time is checked
+if [ "$output" = "FALSE" ]; then
+	rm ~/.config/welcome &>/dev/null
+else
+	ln -s /usr/bin/welcome "$welcome_link" &>/dev/null
+fi
+
+

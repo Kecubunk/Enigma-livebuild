@@ -1,0 +1,10 @@
+ANSI_COLOR="0;34"
+PRETTY_NAME="EnigmaOS GNU/Linux 12 (bookworm)"
+NAME="EnigmaOS GNU/Linux"
+VERSION_ID="12"
+VERSION="12 (bookworm)"
+VERSION_CODENAME=bookworm
+ID=debian
+BUG_REPORT_URL="https://github.com/Kecubunk"
+HOME_URL="https://github.com/Kecubunk"
+SUPPORT_URL="https://github.com/Kecubunk"
