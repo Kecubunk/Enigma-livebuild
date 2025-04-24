@@ -1,0 +1,13 @@
+[Desktop Entry]
+Name=Arduino2 IDE
+Comment=Open-source electronics prototyping platform
+GenericName=Arduino IDE
+Exec=/opt/arduino/arduino %f
+Icon=/opt/arduino/icons.png
+Type=Application
+Terminal=false
+Categories=Development;Engineering;Electronics;IDE;
+MimeType=text/x-arduino
+Keywords=embedded electronics;electronics;avr;microcontroller;
+StartupWMClass=processing-app-Base
+Name[en_US]=Arduino2

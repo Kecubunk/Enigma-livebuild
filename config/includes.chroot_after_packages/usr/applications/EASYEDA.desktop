@@ -1,0 +1,11 @@
+[Desktop Entry]
+Categories=Development;Electronics;
+Comment=A Simple and Powerful Electronic Circuit Design Tool
+Exec=/opt/easyeda/easyeda %f
+Keywords=PCB;EASYEDA;EASY;EDA
+GenericName=EasyEDA
+Icon=/opt/easyeda/icon/128x128/easyeda.png
+Name=EasyEDA
+Type=Application
+Name[en_US]=EasyEDA
+

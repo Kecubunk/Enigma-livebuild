@@ -1,0 +1,11 @@
+[Desktop Entry]
+Name=AppyBuilder
+Comment=Open-source android
+GenericName=Appybuilder
+Exec=/opt/AppyBuilder/appy %f
+Icon=/opt/AppyBuilder/icon.png
+Type=Application
+Terminal=true
+Categories=Development;Engineering;Android;IDE;
+MimeType=text/x-AppyBuilder
+Name[en_US]=AppyBuilder
