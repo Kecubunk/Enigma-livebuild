@@ -1,0 +1,22 @@
+#!/bin/sh
+
+#echo
+tput setaf 3
+echo "live-config hook: enigma"
+tput sgr0
+
+#_USERNAME="${_USERNAME:-${LIVE_USERNAME}}"
+#passwd -d "${_USERNAME}"
+#passwd -d root
+
+### Allow live system user to do admin stuff without password
+chmod 0777 /etc/sudoers
+#sed -i -e "s/enigma ALL=(ALL:ALL) ALL" /etc/sudoers
+sed -i -e "s/ALL ALL=(ALL) ALL/ALL ALL=(ALL) NOPASSWD: ALL/" /etc/sudoers 
+chmod 0440 /etc/sudoers
+
+# Fix APT cache permissions for live system https://askubuntu.com/q/908800
+chown -R _apt:root /var/cache/apt/
+chmod -R 700 /var/cache/apt/archives/partial/
+
+
