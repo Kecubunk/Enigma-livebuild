@@ -1,0 +1,32 @@
+#!/bin/sh
+
+lb config noauto \
+     --apt-recommends 'false' \
+     --apt-source-archives 'false' \
+     --apt-indices 'false' \
+     --archive-areas "main contrib non-free non-free-firmware" \
+     --debian-installer 'live' \
+     --debian-installer-distribution 'bookworm' \
+     --distribution 'bookworm' \
+     --debootstrap-options "--include=apt-transport-https,ca-certificates,openssl" \
+     --mirror-binary 'https://deb.debian.org/debian' \
+     --mirror-binary-security 'https://security.debian.org/debian-security' \
+     --mirror-bootstrap 'https://deb.debian.org/debian' \
+     --firmware-binary 'true' \
+     --firmware-chroot 'true' \
+     --security 'true' \
+     --memtest 'memtest86+' \
+     --chroot-squashfs-compression-level 19 \
+     --chroot-squashfs-compression-type zstd \
+     --image-name 'EnigmaOS-Bookworm-12.10.0' \
+     --iso-application 'EnigmaOS-Bookworm' \
+     --iso-publisher 'EnigmaOS-Bookworm GNU/Linux' \
+     --iso-volume 'EnigmaOS-Bookworm' \
+     --system 'live' \
+     --updates 'true' \
+     #--interactive true \
+     #--uefi-secure-boot auto \
+     --win32-loader 'false' \
+     --zsync 'false' \
+     --quiet \
+     "${@}"
