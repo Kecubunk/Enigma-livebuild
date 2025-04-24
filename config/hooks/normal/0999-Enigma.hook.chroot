@@ -1,0 +1,69 @@
+!#/bin/bash
+
+### Allow live system user to do admin stuff without password
+chmod 0777 /etc/sudoers
+sed -i -e "s/ALL ALL=(ALL) ALL/ALL ALL=(ALL) NOPASSWD: ALL/" /etc/sudoers 
+chmod 0440 /etc/sudoers
+
+# Fix APT cache permissions for live system https://askubuntu.com/q/908800
+chown -R _apt:root /var/cache/apt/
+chmod -R 700 /var/cache/apt/archives/partial/
+
+# Set python3 as default
+update-alternatives --install /usr/bin/python python /usr/bin/python3 1
+mv /usr/lib/python3.11/EXTERNALLY-MANAGED /usr/lib/python3.11/EXTERNALLY-MANAGED.old
+
+# Add Flatpack
+flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
+
+sed -i 's|Install Debian|Install EnigmaOS|g' /usr/share/applications/install-debian.desktop
+sed -i 's|Debian Live|EnigmaOS|g' /usr/share/applications/install-debian.desktop
+
+### https://www.reddit.com/r/debian/comments/14rd64o/hyperv_gen_2_debian_12_wluks_unable_to_boot/jtc9vv4/
+echo "hyperv_keyboard" >> /etc/initramfs-tools/modules
+
+### Disable Gnome Software automatic updates and change lockscreen wallpaper
+glib-compile-schemas /usr/share/glib-2.0/schemas/
+
+#echo "Adding extensions"
+#e 307 43  #dashtodock
+#e 3210 43 #compiz lamp
+#e 4648 43 #desktop cube
+#e 5156 43 #desktop clock
+#e 3628 43 #arc menu
+
+########### Install starship ##########################
+curl -sS https://starship.rs/install.sh | sh
+wget -P /usr/share/fonts/JetBrainsMono https://github.com/ryanoasis/nerd-fonts/releases/download/v3.0.2/JetBrainsMono.zip && cd /usr/share/fonts/JetBrainsMono/ && unzip JetBrainsMono.zip && rm JetBrainsMono.zip && fc-cache -fv
+cd
+wget https://raw.githubusercontent.com/Kecubunk/mybash/main/config.txt
+cat config.txt >> ~/.bashrc
+cat config.txt >> /etc/skel/.bashrc
+mkdir /etc/skel/.config/
+wget -P /etc/skel/.config/ https://raw.githubusercontent.com/Kecubunk/mybash/main/starship.toml
+wget -P ~/.config/ https://raw.githubusercontent.com/Kecubunk/mybash/main/starship.toml
+rm -f config.txt
+
+echo "Adding zram swap"
+apt install zram-tools && echo -e "ALGO=zstd\nPERCENT=20" | sudo tee -a /etc/default/zramswap && systemctl reload zramswap.service
+
+########## olama support ##########################
+#curl -fsSL https://ollama.com/install.sh | sh
+
+############### Add openjdk 8 #########################################
+#wget http://www.mirbsd.org/~tg/Debs/sources.txt/wtf-bookworm.sources
+#mv wtf-bookworm.sources /etc/apt/sources.list.d/
+#apt install openjdk-8-jdk
+
+#ln -s /opt/AppyBuilder/appy /usr/bin/appy
+
+cat <<EOF>> /etc/initramfs-tools/initramfs.conf
+COMPRESSLEVEL=19
+EOF
+
+rm -f /usr/share/applications/ca.desrt.dconf-editor.desktop
+
+# Remove history
+rm -f ~/.bash_history
+rm -f /root/.bash_history
+
